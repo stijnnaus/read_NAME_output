@@ -52,10 +52,6 @@ def read_footprint_NAME(flasknumber, path_base, samplelayer='40m', tarred=False,
         f = open('%s/Flask_%i/%s'%(path_base, flasknumber, fname))
     
     # Read footprints from open output file
-    
-    # Number of timesteps within each NAME simulation - note: NAME simulation
-    # actually has 26 timesteps, but the first hour is the release hour so is
-    # not included
     nstepNAME = 26
     
     timesteps  = np.zeros(nstepNAME, dtype=object)
@@ -109,7 +105,7 @@ def read_footprint_NAME(flasknumber, path_base, samplelayer='40m', tarred=False,
 def calculate_enhancements(footprints, emis):
     """
     Calculate enhancements from footprints and emissions in ppm
-     - footprints can have units ppm or concentration depending on which file has been read
+     - footprints are units ppm, conversion has already been done if concentrations were read
      - emissions have to be in kg/m2/s
      
     We convert emissions to footprint grid and calculate enhancements on footprint grid.
@@ -161,8 +157,8 @@ emis_tot2 = np.sum(np.mean(emis_regr,axis=0)*area_per_gridcell_fp*3600*24*365 /1
 print("Etot before regridding = %2.2f kt/yr \nEtot after regridding = %2.2f kt/yr"%(emis_tot1, emis_tot2))
 
 # We need to match hours in emissions to hours in footprints. Emissions is now 1 daily cycle,
-# footprints will be 26 hours counted backwards from the end of release
-emis_regr = emis_regr[[t.hour for t in tsteps_fp]] # select correct hours
+# footprints will be 26 hours counted backwards from the start of release
+emis_regr = emis_regr[[t.hour for t in tsteps_fp]] 
 
 print("Emissions read")
 
