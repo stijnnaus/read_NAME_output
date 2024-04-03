@@ -15,7 +15,7 @@ from datetime import datetime,timedelta
 import helpers
 
 def read_footprint_NAME(flasknumber, path_base, samplelayer='40m', tarred=False, unit='ppm'):
-    '''
+    """
     Read NAME footprint. This can be done from a tarred output directory, or from
     an untarred directory. 
     NAME footprints are output both in ppm and in concentration, so you need to specify 
@@ -23,7 +23,7 @@ def read_footprint_NAME(flasknumber, path_base, samplelayer='40m', tarred=False,
     available in concentration.
     Samplelayer is the depth of the layer in which particles are still considered
     to be in contact with the sources. Options are 40m, 100m and PBL
-    '''
+    """
     
     # Hard-coded, this is the domain I used for the flask NAME simulations
     lonsNAME = np.linspace(172, 179.2, 533)
@@ -107,15 +107,14 @@ def read_footprint_NAME(flasknumber, path_base, samplelayer='40m', tarred=False,
     return timesteps, latsNAME, lonsNAME, footprints
 
 def calculate_enhancements(footprints, emis):
-    '''
+    """
     Calculate enhancements from footprints and emissions in ppm
      - footprints can have units ppm or concentration depending on which file has been read
      - emissions have to be in kg/m2/s
      
     We convert emissions to footprint grid and calculate enhancements on footprint grid.
     Reason being that then we can compare gridded enhancements from different emission inventories.
-    '''
-    
+    """
     
     # Footprints to [s/m]
     area_per_gridcell = helpers.calc_area_per_gridcell(lats_fp, lons_fp)
