@@ -158,7 +158,7 @@ area_per_gridcell_emis = helpers.calc_area_per_gridcell(lats_emis, lons_emis)
 area_per_gridcell_fp   = helpers.calc_area_per_gridcell(lats_fp, lons_fp)
 emis_tot1 = np.sum(np.mean(emis,axis=0)*area_per_gridcell_emis*3600*24*365 /1e6)    # kton/year
 emis_tot2 = np.sum(np.mean(emis_regr,axis=0)*area_per_gridcell_fp*3600*24*365 /1e6) # kton/year
-print("Etot before regridding = %2.2f \nEtot after regridding = %2.2f"%(emis_tot1, emis_tot2))
+print("Etot before regridding = %2.2f kt/yr \nEtot after regridding = %2.2f kt/yr"%(emis_tot1, emis_tot2))
 
 # We need to match hours in emissions to hours in footprints. Emissions is now 1 daily cycle,
 # footprints will be 26 hours counted backwards from the end of release
@@ -168,7 +168,7 @@ print("Emissions read")
 
 enh = calculate_enhancements(footprints, emis_regr)
 
-print(enh.sum())
+print("Calculated enhancement: %2.2f ppm", enh.sum())
  
  
  
